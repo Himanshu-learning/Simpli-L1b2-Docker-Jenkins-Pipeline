@@ -6,4 +6,3 @@ RUN apt clean
 EXPOSE 80
 CMD ["apache2ctl","-D","FOREGROUND"]
 ADD target/lab2-image-tomcat.jar lab2-image-tomcat.jar
-ENTRYPOINT ["java","-jar","/lab2-image-tomcat.jar"]
