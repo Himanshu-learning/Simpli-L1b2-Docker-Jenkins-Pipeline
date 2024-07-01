@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t himanshu2311/lab2-image-tomcat .'
+                    sh 'docker build -t himanshu2311/lab2-image-apache2 .'
                 }
             }
         }
@@ -22,16 +22,8 @@ pipeline {
                 script{
                    withCredentials([string(credentialsId: 'dockercred', variable: 'dockerpwd')]) {
                    sh 'docker login -u himanshu2311 -p ${dockerpwd}'
-
-}
-                   sh 'docker push himanshu2311/lab2-image-tomcat'
-                }
-            }
-        }
-        stage('Deploy to k8s'){
-            steps{
-                script{
-                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
+                    }
+                   sh 'docker push himanshu2311/lab2-image-apache2'
                 }
             }
         }
