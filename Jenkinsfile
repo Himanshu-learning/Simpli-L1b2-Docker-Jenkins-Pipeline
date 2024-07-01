@@ -1,19 +1,19 @@
 pipeline {
     agent any
     tools{
-        maven 'maven_3_5_0'
+        maven 'mvn'
     }
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Java-Techie-jt/devops-automation']]])
+                git branch: 'main', url: 'https://github.com/Himanshu-learning/Simpli-L1b2-Docker-Jenkins-Pipeline.git'
                 sh 'mvn clean install'
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    sh 'docker build -t himanshu2311/lab2-image .'
                 }
             }
         }
@@ -21,10 +21,10 @@ pipeline {
             steps{
                 script{
                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u javatechie -p ${dockerhubpwd}'
+                   sh 'docker login -u himanshu2311 -p ${dockerhubpwd}'
 
 }
-                   sh 'docker push javatechie/devops-integration'
+                   sh 'docker push himanshu2311/lab2-image'
                 }
             }
         }
