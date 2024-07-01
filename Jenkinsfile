@@ -13,18 +13,18 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t himanshu2311/lab2-image .'
+                    sh 'docker build -t himanshu2311/lab2-image-tomcat .'
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u himanshu2311 -p ${dockerhubpwd}'
+                   withCredentials([string(credentialsId: 'dockercred', variable: 'dockerpwd')]) {
+                   sh 'docker login -u himanshu2311 -p ${dockerpwd}'
 
 }
-                   sh 'docker push himanshu2311/lab2-image'
+                   sh 'docker push himanshu2311/lab2-image-tomcat'
                 }
             }
         }
