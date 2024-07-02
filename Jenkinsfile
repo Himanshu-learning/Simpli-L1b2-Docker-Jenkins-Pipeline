@@ -24,7 +24,7 @@ pipeline {
                    sh 'docker login -u himanshu2311 -p ${dockerpwd}'
                     }
                    sh 'docker push himanshu2311/lab2-image-apache2'
-                   sh 'docker run -itd -p 81:80 himanshu2311/lab2-image-apache2:latest'
+                   sh 'docker run -itd -p 80:80 himanshu2311/lab2-image-apache2:latest'
                 }
             }
         }
